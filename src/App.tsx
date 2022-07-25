@@ -4,8 +4,6 @@ import { Message } from "./common";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 
-const randomName = `User ${Math.floor(Math.random() * 10000)}`;
-
 // Render a chat message
 function MessageView(props: { message: Message }) {
   const message = props.message;
