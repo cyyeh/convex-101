@@ -9,6 +9,8 @@
  * @module
  */
 
+import type addChannel from "../addChannel";
+import type listChannels from "../listChannels";
 import type listMessages from "../listMessages";
 import type sendMessage from "../sendMessage";
 
@@ -32,9 +34,11 @@ import type { ClientMutation, ClientQuery } from "convex/server";
  */
 export type ConvexAPI = {
   queries: {
+    listChannels: ClientQuery<typeof listChannels>;
     listMessages: ClientQuery<typeof listMessages>;
   };
   mutations: {
+    addChannel: ClientMutation<typeof addChannel>;
     sendMessage: ClientMutation<typeof sendMessage>;
   };
 };
