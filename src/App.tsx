@@ -1,6 +1,7 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { Id } from "convex/values";
 import { Message } from "./common";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 
 const randomName = `User ${Math.floor(Math.random() * 10000)}`;
@@ -27,7 +28,7 @@ function ChatBox(props: { channelId: Id}) {
   async function handleSendMessage(event: FormEvent) {
     event.preventDefault();
     setNewMessageText(""); // reset text entry box
-    await sendMessage(props.channelId, newMessageText, randomName);
+    await sendMessage(props.channelId, newMessageText);
   }
 
   return (
@@ -66,7 +67,45 @@ function ChatBox(props: { channelId: Id}) {
   )
 }
 
+export function Login() {
+  const { isLoading, loginWithRedirect } = useAuth0();
+  if (isLoading) {
+    return <button className="btn btn-primary">Loading...</button>;
+  }
+  return (
+    <main className="py-4">
+      <h1 className="text-center">Convex Chat</h1>
+      <div className="text-center">
+        <span>
+          <button className="btn btn-primary" onClick={loginWithRedirect}>
+            Log in
+          </button>
+        </span>
+      </div>
+    </main>
+  )
+}
+
+function Logout() {
+  const { logout, user } = useAuth0();
+  return (
+    <div>
+      {/* We know this component only renders if the user is logged in */}
+      <p>Logged in{user!.name ? `as ${user!.name}` : ""}</p>
+      <button
+        className="btn btn-primary"
+        onClick={() => logout({ returnTo: window.location.origin })}
+      >
+        Log out
+      </button>
+    </div>
+  );
+}
+
 export default function App() {
+  const [userId, setUserId] = useState<Id | null>(null);
+  const storeUser = useMutation("storeUser");
+
   // Dynamically update `channels` in response to the output of
   // `listChannels.ts`.
   const channels = useQuery("listChannels") || [];
@@ -80,6 +119,21 @@ export default function App() {
 
   const addChannel = useMutation("addChannel");
 
+  // Call the `storeUser` mutation function to store
+  // the current user in the `users` table and return the `Id` value.
+  useEffect(() => {
+    // Store the user in the database.
+    // Recall that `storeUser` gets the user information via the `auth`
+    // object on the server. You don't need to pass anything manually here.
+    async function createUser() {
+      const id = await storeUser();
+      setUserId(id);
+    }
+    createUser();
+    return () => setUserId(null);
+  }, [storeUser]);
+
+
   async function handleAddChannel(event: FormEvent) {
     event.preventDefault();
     setNewChannelName("");
@@ -91,7 +145,9 @@ export default function App() {
     <main className="py-4">
       <h1 className="text-center">Convex Chat</h1>
       <p className="text-center">
-        <span className="badge bg-dark">{randomName}</span>
+        <span>
+          <Logout />
+        </span>
       </p>
 
       <div className="main-content">

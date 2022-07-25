@@ -13,6 +13,7 @@ import type addChannel from "../addChannel";
 import type listChannels from "../listChannels";
 import type listMessages from "../listMessages";
 import type sendMessage from "../sendMessage";
+import type storeUser from "../storeUser";
 
 // This jumpstarts TypeScript completion of the convex/values entry point.
 import type { Id } from "convex/values";
@@ -40,6 +41,7 @@ export type ConvexAPI = {
   mutations: {
     addChannel: ClientMutation<typeof addChannel>;
     sendMessage: ClientMutation<typeof sendMessage>;
+    storeUser: ClientMutation<typeof storeUser>;
   };
 };
 

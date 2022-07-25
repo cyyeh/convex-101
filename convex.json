@@ -1,5 +1,10 @@
 {
-  "authInfo": [],
+  "authInfo": [
+    {
+      "domain": "https://dev-yjz014t2.us.auth0.com",
+      "applicationID": "18MFjrysXfZguGPPwIJthLXOYqNLDTGp"
+    }
+  ],
   "functions": "convex/",
   "instanceName": "little-camel-719",
   "origin": "https://little-camel-719.convex.cloud"
