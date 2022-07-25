@@ -9,8 +9,8 @@
  * @module
  */
 
-import type getCounter from "../getCounter";
-import type incrementCounter from "../incrementCounter";
+import type listMessages from "../listMessages";
+import type sendMessage from "../sendMessage";
 
 // This jumpstarts TypeScript completion of the convex/values entry point.
 import type { Id } from "convex/values";
@@ -32,10 +32,10 @@ import type { ClientMutation, ClientQuery } from "convex/server";
  */
 export type ConvexAPI = {
   queries: {
-    getCounter: ClientQuery<typeof getCounter>;
+    listMessages: ClientQuery<typeof listMessages>;
   };
   mutations: {
-    incrementCounter: ClientMutation<typeof incrementCounter>;
+    sendMessage: ClientMutation<typeof sendMessage>;
   };
 };
 
