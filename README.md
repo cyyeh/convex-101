@@ -1,4 +1,4 @@
-# 0-hello-convex
+# Convex 101
 
 This example uses Convex to build a basic counter application.
 
@@ -7,15 +7,9 @@ The app is built with [React](https://reactjs.org/) and
 [Vite](https://vitejs.dev/). It connects to a Convex deployment running at the
 origin specified in `convex.json` using the React client.
 
-## Documentation
-
-This directory serves as the basis for the
-[Hello Convex tutorial](https://docs.convex.dev/getting-started/hello-convex).
-
 ## Running
 
-First run `npm install` to pull in the required dependencies including the
-Convex npm package.
+First run `npm install` to pull in the required dependencies including the Convex npm package.
 
 Login with `npx convex login`.
 
