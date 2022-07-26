@@ -1,6 +1,6 @@
 # Convex 101
 
-This example uses Convex to build a basic counter application.
+This example uses Convex to build a basic chat application.
 
 The app is built with [React](https://reactjs.org/) and
 [TypeScript](https://www.typescriptlang.org/), bundled using
